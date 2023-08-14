@@ -6,7 +6,7 @@ const port = 3000;
 
 app.get("/fetch-data", async (req, res) => {
   try {
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({ headless: "new" });
     const page = await browser.newPage();
 
     const url = req.query.url; // Get the URL from the query parameter
