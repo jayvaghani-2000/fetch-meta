@@ -1,12 +1,14 @@
 const express = require("express");
 const puppeteer = require("puppeteer");
 
+const playwright = require("playwright");
+
 const app = express();
 const port = 3000;
 
 app.get("/fetch-data", async (req, res) => {
   try {
-    const browser = await puppeteer.launch({ headless: "new" });
+    const browser = await puppeteer.launch();
     const page = await browser.newPage();
 
     const url = req.query.url; // Get the URL from the query parameter
@@ -16,14 +18,21 @@ app.get("/fetch-data", async (req, res) => {
     }
 
     await page.goto(url);
-    await page.waitForSelector("title"); // Wait for the title element to load
-    await page.waitForSelector('meta[name="description"]');
+    const titleSelector = "title";
+    const descriptionSelector = 'meta[name="description"]';
+    const keywordsSelector = 'meta[name="keywords"]';
 
-    const metaDescription = await page.$eval(
-      'meta[name="description"]',
-      (element) => element.getAttribute("content")
-    );
+    await page.waitForSelector(titleSelector); // Wait for the title tag to appear
+    // await page.waitForSelector(descriptionSelector); // Wait for the meta description tag to appear
+    // await page.waitForSelector(keywordsSelector); // Wait for the meta keywords tag to appear
 
+    // const metaDescription = await page.$eval(
+    //   'meta[name="description"]',
+    //   (element) => element.getAttribute("content")
+    // );
+    // const keywords = await page.$eval(keywordsSelector, (element) =>
+    //   element.getAttribute("content")
+    // );
     const pageTitle = await page.title(); // Get the title of the page
     // const pageContent = await page.content(); // Get the HTML content of the page
 
@@ -31,7 +40,8 @@ app.get("/fetch-data", async (req, res) => {
 
     res.json({
       title: pageTitle,
-      metaDescription,
+      // metaDescription,
+      // keywords,
       // content: pageContent
     });
   } catch (error) {
