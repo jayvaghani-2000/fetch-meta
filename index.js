@@ -10,7 +10,11 @@ const port = 3000;
 app.get("/fetch-title", async (req, res) => {
   try {
     const browser = await Chromium.puppeteer.launch({
+      args: [...Chromium.args, "--hide-scrollbars", "--disable-web-security"],
+      defaultViewport: Chromium.defaultViewport,
       executablePath: await Chromium.executablePath,
+      headless: true,
+      ignoreHTTPSErrors: true,
     });
     const page = await browser.newPage();
 
@@ -55,7 +59,11 @@ app.get("/fetch-title", async (req, res) => {
 app.get("/fetch-keywords", async (req, res) => {
   try {
     const browser = await Chromium.puppeteer.launch({
+      args: [...Chromium.args, "--hide-scrollbars", "--disable-web-security"],
+      defaultViewport: Chromium.defaultViewport,
       executablePath: await Chromium.executablePath,
+      headless: true,
+      ignoreHTTPSErrors: true,
     });
     const page = await browser.newPage();
 
@@ -87,7 +95,11 @@ app.get("/fetch-keywords", async (req, res) => {
 app.get("/fetch-image", async (req, res) => {
   try {
     const browser = await Chromium.puppeteer.launch({
+      args: [...Chromium.args, "--hide-scrollbars", "--disable-web-security"],
+      defaultViewport: Chromium.defaultViewport,
       executablePath: await Chromium.executablePath,
+      headless: true,
+      ignoreHTTPSErrors: true,
     });
     const page = await browser.newPage();
 
@@ -120,7 +132,11 @@ app.get("/fetch-image", async (req, res) => {
 app.get("/fetch-description", async (req, res) => {
   try {
     const browser = await Chromium.puppeteer.launch({
+      args: [...Chromium.args, "--hide-scrollbars", "--disable-web-security"],
+      defaultViewport: Chromium.defaultViewport,
       executablePath: await Chromium.executablePath,
+      headless: true,
+      ignoreHTTPSErrors: true,
     });
     const page = await browser.newPage();
 
