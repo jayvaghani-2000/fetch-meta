@@ -2,13 +2,16 @@ const express = require("express");
 const puppeteer = require("puppeteer");
 const fs = require("fs");
 const path = require("path");
+const Chromium = require("chrome-aws-lambda");
 
 const app = express();
 const port = 3000;
 
 app.get("/fetch-title", async (req, res) => {
   try {
-    const browser = await puppeteer.launch();
+    const browser = await Chromium.puppeteer.launch({
+      executablePath: await Chromium.executablePath,
+    });
     const page = await browser.newPage();
 
     const url = req.query.url; // Get the URL from the query parameter
@@ -51,7 +54,9 @@ app.get("/fetch-title", async (req, res) => {
 });
 app.get("/fetch-keywords", async (req, res) => {
   try {
-    const browser = await puppeteer.launch();
+    const browser = await Chromium.puppeteer.launch({
+      executablePath: await Chromium.executablePath,
+    });
     const page = await browser.newPage();
 
     const url = req.query.url; // Get the URL from the query parameter
@@ -81,7 +86,9 @@ app.get("/fetch-keywords", async (req, res) => {
 });
 app.get("/fetch-image", async (req, res) => {
   try {
-    const browser = await puppeteer.launch();
+    const browser = await Chromium.puppeteer.launch({
+      executablePath: await Chromium.executablePath,
+    });
     const page = await browser.newPage();
 
     const url = req.query.url; // Get the URL from the query parameter
@@ -112,7 +119,9 @@ app.get("/fetch-image", async (req, res) => {
 
 app.get("/fetch-description", async (req, res) => {
   try {
-    const browser = await puppeteer.launch();
+    const browser = await Chromium.puppeteer.launch({
+      executablePath: await Chromium.executablePath,
+    });
     const page = await browser.newPage();
 
     const url = req.query.url; // Get the URL from the query parameter
